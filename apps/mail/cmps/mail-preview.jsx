@@ -15,7 +15,6 @@ const { withRouter } = ReactRouterDOM;
     componentDidMount() {
 
         eventBusService.on('note-to-mail', (mail) => {
-            console.log(mail)
             this.onMakeNoteToMail(mail)
         })
     }
@@ -25,14 +24,9 @@ const { withRouter } = ReactRouterDOM;
         eventBusService.emit('preview-compose', mail)
     }
 
-  
-    // componentWillUnmount() {
-    //     this.removeEvent()
-    // }
 
     onSendMailToNote = (mail) => {
         const note = { info: { title: mail.subject, txt: mail.body } }
-        console.log(note)
         this.setState({ note }, () => {
             eventBusService.emit('get-note', note)
         })
@@ -41,7 +35,6 @@ const { withRouter } = ReactRouterDOM;
     inputRef4 = React.createRef()
 
     onToggleChooseCategory=()=>{
-        console.log(this.inputRef4)
         this.inputRef4.current.classList.toggle('close')
 
     }
@@ -51,7 +44,6 @@ const { withRouter } = ReactRouterDOM;
     render() {
         const { onUpdateMailCategory, onUpdateMailStatus, mail, onUpdateReadState, onUpdateStarredState } = this.props
         const date = new Date(mail.sentAt)
-        console.log(mail.subject)
         const now = new Date()
         let hours = date.getHours()
         if (hours < 10) hours = `0${hours}`
@@ -61,7 +53,6 @@ const { withRouter } = ReactRouterDOM;
         const text = mail.body
         let dateToShow
         const sub=mail.subject
-        console.log(sub)
 
         if ((date.getMonth() === now.getMonth()) && (date.getDate() === now.getDate()) && (date.getFullYear() === now.getFullYear())) {
             dateToShow = `${hours}:${minutes}`
